@@ -246,6 +246,212 @@ export function errorResponse(error: string): BaseResponse<never> {
 }
 
 // =============================================================================
+// Property Types
+// =============================================================================
+
+export type PropertySource = 'zillow' | 'streeteasy';
+
+export type PropertyListingStatus =
+  | 'for_sale'
+  | 'pending'
+  | 'sold'
+  | 'delisted'
+  | 'unknown';
+
+export interface PropertyAddress {
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
+  unit: string | null;
+  latitude: number | null;
+  longitude: number | null;
+}
+
+export interface Property {
+  id: string;
+  source: PropertySource;
+  source_id: string;
+  normalized_address: string;
+  address: PropertyAddress;
+  price: number | null;
+  bedrooms: number | null;
+  bathrooms: number | null;
+  sqft: number | null;
+  lot_size: number | null;
+  property_type: string | null;
+  listing_status: PropertyListingStatus;
+  images: string[];
+  description: string | null;
+  zestimate: number | null;
+  url: string | null;
+  listed_at: string | null;
+  sold_at: string | null;
+  sold_price: number | null;
+  cached_at: string;
+  created_at: string;
+  updated_at: string;
+}
+
+// =============================================================================
+// Property Search Types
+// =============================================================================
+
+export interface PropertySearchRequest {
+  query: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  radius_miles: number | null;
+  zip: string | null;
+  min_price: number | null;
+  max_price: number | null;
+  min_bedrooms: number | null;
+  max_bedrooms: number | null;
+  property_type: string | null;
+  source: PropertySource | null;
+  has_pretend_offers: boolean | null;
+  page: number;
+  limit: number;
+}
+
+export interface PropertySearchResponse {
+  properties: Property[];
+  total: number;
+  page: number;
+  limit: number;
+  has_more: boolean;
+}
+
+// =============================================================================
+// Price History Types
+// =============================================================================
+
+export type PriceHistoryEvent =
+  | 'listed'
+  | 'price_change'
+  | 'pending'
+  | 'sold'
+  | 'delisted'
+  | 'relisted';
+
+export interface PriceHistoryEntry {
+  date: string;
+  price: number;
+  event: PriceHistoryEvent;
+  source: string | null;
+}
+
+export interface PropertyPriceHistoryResponse {
+  property_id: string;
+  entries: PriceHistoryEntry[];
+}
+
+// =============================================================================
+// PretendOffer Types
+// =============================================================================
+
+export type PretendOfferStatus =
+  | 'active'
+  | 'won'
+  | 'lost'
+  | 'cancelled'
+  | 'expired';
+
+export interface PretendOffer {
+  id: string;
+  user_id: string;
+  property_id: string;
+  offer_price: number;
+  status: PretendOfferStatus;
+  created_at: string;
+  updated_at: string;
+  resolved_at: string | null;
+}
+
+export interface PretendOfferCreateRequest {
+  property_id: string;
+  offer_price: number;
+}
+
+export interface PretendOfferUpdateRequest {
+  offer_price: number;
+}
+
+export type PretendOfferPayoutType = 'competitor' | 'solo_bonus';
+
+export interface PretendOfferResolution {
+  property_id: string;
+  closing_price: number;
+  closing_date: string;
+  winner_user_id: string | null;
+  winner_offer_id: string | null;
+  highest_loser_user_id: string | null;
+  highest_loser_offer_id: string | null;
+  payout_amount: number;
+  payout_type: PretendOfferPayoutType;
+  resolved_at: string;
+}
+
+// =============================================================================
+// User & Balance Types
+// =============================================================================
+
+export interface UserProfile {
+  firebase_uid: string;
+  email: string | null;
+  display_name: string | null;
+  avatar_url: string | null;
+  pretend_usd_balance: number;
+  total_offers: number;
+  total_wins: number;
+  created_at: string | null;
+  updated_at: string | null;
+}
+
+export type TransactionType =
+  | 'initial_grant'
+  | 'offer_won_payout'
+  | 'offer_lost_payment'
+  | 'solo_bonus';
+
+export interface Transaction {
+  id: string;
+  user_id: string;
+  type: TransactionType;
+  amount: number;
+  description: string;
+  reference_id: string | null;
+  created_at: string;
+}
+
+// =============================================================================
+// Leaderboard Types
+// =============================================================================
+
+export interface LeaderboardEntry {
+  rank: number;
+  user_id: string;
+  display_name: string | null;
+  pretend_usd_balance: number;
+  total_wins: number;
+  total_offers: number;
+}
+
+export interface LeaderboardRequest {
+  sort_by: 'balance' | 'wins';
+  page: number;
+  limit: number;
+}
+
+export interface LeaderboardResponse {
+  entries: LeaderboardEntry[];
+  total: number;
+  page: number;
+  limit: number;
+  has_more: boolean;
+}
+
+// =============================================================================
 // Type Guards
 // =============================================================================
 

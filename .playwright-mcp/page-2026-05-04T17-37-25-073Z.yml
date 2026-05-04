@@ -1,0 +1,55 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "R REALTYAPI DOCS" [ref=e6] [cursor=pointer]:
+        - /url: /docs
+        - generic [ref=e8]: R
+        - generic [ref=e9]: REALTYAPI
+        - generic [ref=e10]: DOCS
+      - button "Search documentation... ⌘K" [ref=e11]:
+        - img [ref=e12]
+        - generic [ref=e15]: Search documentation...
+        - generic [ref=e16]: ⌘K
+      - generic [ref=e17]:
+        - button "Switch to dark mode" [ref=e18]:
+          - img [ref=e19]
+        - link "Log In" [ref=e21] [cursor=pointer]:
+          - /url: /login
+  - complementary [ref=e22]:
+    - navigation [ref=e23]:
+      - generic [ref=e24]:
+        - heading "Getting Started" [level=3] [ref=e25]
+        - generic [ref=e26]:
+          - link "Introduction" [ref=e27] [cursor=pointer]:
+            - /url: /docs/introduction
+            - img [ref=e28]
+            - text: Introduction
+          - link "API Credits" [ref=e30] [cursor=pointer]:
+            - /url: /docs/api-credits
+            - img [ref=e31]
+            - text: API Credits
+          - link "Rate Limits" [ref=e36] [cursor=pointer]:
+            - /url: /docs/rate-limits
+            - img [ref=e37]
+            - text: Rate Limits
+          - link "Status Codes" [ref=e40] [cursor=pointer]:
+            - /url: /docs/status-codes
+            - img [ref=e41]
+            - text: Status Codes
+          - link "Pricing" [ref=e43] [cursor=pointer]:
+            - /url: /docs/pricing
+            - img [ref=e44]
+            - text: Pricing
+      - generic [ref=e46]:
+        - heading "Interactive" [level=3] [ref=e47]
+        - link "API Playground" [ref=e48] [cursor=pointer]:
+          - /url: /docs/api-playground
+          - img [ref=e49]
+          - text: API Playground
+      - heading "API Reference" [level=3] [ref=e52]
+  - main [ref=e57]:
+    - generic [ref=e60]:
+      - img [ref=e61]
+      - paragraph [ref=e63]: Loading documentation...
+  - button [ref=e64]:
+    - img [ref=e65]
