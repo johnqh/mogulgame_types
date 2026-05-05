@@ -164,7 +164,7 @@ export function errorResponse(error: string): BaseResponse<never> {
 // Property Types
 // =============================================================================
 
-export type PropertySource = 'zillow' | 'streeteasy';
+export type PropertySource = 'realtor' | 'redfin';
 
 export type PropertyListingStatus =
   | 'for_sale'
@@ -181,6 +181,50 @@ export interface PropertyAddress {
   unit: string | null;
   latitude: number | null;
   longitude: number | null;
+}
+
+export interface PropertyDetailSection {
+  category: string;
+  text: string[];
+}
+
+export interface PropertyDetail {
+  year_built: number | null;
+  stories: number | null;
+  garage: string | null;
+  pool: boolean | null;
+  heating: string | null;
+  cooling: string | null;
+  hoa_fee: number | null;
+  price_per_sqft: number | null;
+  neighborhoods: string[];
+  tax_history: PropertyTaxEntry[];
+  property_history: PropertyHistoryEvent[];
+  schools: PropertySchool[];
+  detail_sections: PropertyDetailSection[];
+  street_view_url: string | null;
+}
+
+export interface PropertyTaxEntry {
+  year: number;
+  tax: number;
+  assessment_total: number | null;
+}
+
+export interface PropertyHistoryEvent {
+  date: string;
+  event_name: string;
+  price: number | null;
+  source_name: string | null;
+}
+
+export interface PropertySchool {
+  name: string;
+  district: string | null;
+  funding_type: string | null;
+  grades: string[];
+  rating: number | null;
+  distance_miles: number | null;
 }
 
 export interface Property {
@@ -203,6 +247,7 @@ export interface Property {
   listed_at: string | null;
   sold_at: string | null;
   sold_price: number | null;
+  detail: PropertyDetail | null;
   cached_at: string;
   created_at: string;
   updated_at: string;
