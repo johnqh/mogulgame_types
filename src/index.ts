@@ -412,6 +412,27 @@ export interface LeaderboardResponse {
 }
 
 // =============================================================================
+// Property View Types
+// =============================================================================
+
+export interface PropertyView {
+  id: string;
+  property_id: string;
+  address: string;
+  image_url: string | null;
+  view_count: number;
+  last_viewed_at: string;
+}
+
+export interface PropertyViewsResponse {
+  views: PropertyView[];
+  total: number;
+  page: number;
+  limit: number;
+  has_more: boolean;
+}
+
+// =============================================================================
 // Type Guards
 // =============================================================================
 
