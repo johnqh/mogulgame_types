@@ -422,6 +422,7 @@ export interface PropertyView {
   image_url: string | null;
   view_count: number;
   favorites_count: number;
+  offer_count?: number;
   last_viewed_at: string;
 }
 
