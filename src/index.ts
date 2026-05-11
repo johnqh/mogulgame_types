@@ -18,6 +18,16 @@ import type { BaseResponse } from '@sudobility/types';
  */
 export type ISODateString = string & { readonly __brand: 'ISODateString' };
 
+/**
+ * ISO 3166-1 alpha-2 country codes supported by MogulGame.
+ */
+export type CountryCode = 'US' | 'CA' | 'GB' | 'AE' | 'ES' | 'AU';
+
+/**
+ * ISO 4217 currency codes used by MogulGame.
+ */
+export type CurrencyCode = 'USD' | 'CAD' | 'GBP' | 'AED' | 'EUR' | 'AUD';
+
 // =============================================================================
 // User
 // =============================================================================
@@ -164,7 +174,7 @@ export function errorResponse(error: string): BaseResponse<never> {
 // Property Types
 // =============================================================================
 
-export type PropertySource = 'realtor' | 'redfin';
+export type PropertySource = CountryCode;
 
 export type PropertyListingStatus =
   | 'for_sale'
@@ -176,8 +186,9 @@ export type PropertyListingStatus =
 export interface PropertyAddress {
   street: string;
   city: string;
-  state: string;
-  zip: string;
+  region: string;
+  postal_code: string;
+  country: CountryCode;
   unit: string | null;
   latitude: number | null;
   longitude: number | null;
@@ -258,11 +269,12 @@ export interface Property {
 // =============================================================================
 
 export interface PropertySearchRequest {
+  country?: CountryCode;
   query: string | null;
   latitude: number | null;
   longitude: number | null;
   radius_miles: number | null;
-  zip: string | null;
+  postal_code: string | null;
   min_price: number | null;
   max_price: number | null;
   min_bedrooms: number | null;
@@ -322,6 +334,7 @@ export interface PretendOffer {
   user_id: string;
   property_id: string;
   offer_price: number;
+  currency: CurrencyCode;
   status: PretendOfferStatus;
   created_at: string;
   updated_at: string;
@@ -361,7 +374,7 @@ export interface UserProfile {
   email: string | null;
   display_name: string | null;
   avatar_url: string | null;
-  pretend_usd_balance: number;
+  balances: Partial<Record<CountryCode, number>>;
   total_offers: number;
   total_wins: number;
   created_at: string | null;
@@ -379,6 +392,8 @@ export interface Transaction {
   user_id: string;
   type: TransactionType;
   amount: number;
+  currency: CurrencyCode;
+  country: CountryCode;
   description: string;
   reference_id: string | null;
   created_at: string;
@@ -392,18 +407,21 @@ export interface LeaderboardEntry {
   rank: number;
   user_id: string;
   display_name: string | null;
-  pretend_usd_balance: number;
+  country: CountryCode;
+  pretend_balance: number;
   total_wins: number;
   total_offers: number;
 }
 
 export interface LeaderboardRequest {
+  country: CountryCode;
   sort_by: 'balance' | 'wins';
   page: number;
   limit: number;
 }
 
 export interface LeaderboardResponse {
+  country: CountryCode;
   entries: LeaderboardEntry[];
   total: number;
   page: number;
