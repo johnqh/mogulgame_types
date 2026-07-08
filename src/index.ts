@@ -7,6 +7,8 @@ export type {
 } from '@sudobility/types';
 import type { BaseResponse } from '@sudobility/types';
 
+export * from './crawler.js';
+
 // =============================================================================
 // Type Aliases
 // =============================================================================
