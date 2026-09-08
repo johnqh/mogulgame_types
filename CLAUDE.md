@@ -1,5 +1,10 @@
 # MogulGame Types
 
+> **Git policy — never auto-commit or auto-push.** Leave your work in the working tree.
+> Run `git commit`, `git push`, `gh pr create`, or `scripts/push_all.sh` **only when the user
+> explicitly asks in that turn**. Approval for an earlier change does not carry forward, and
+> finishing a task is not permission to commit it.
+
 Shared TypeScript type definitions for the MogulGame ecosystem, plus a handful of runtime helpers.
 
 **npm**: `@sudobility/mogulgame_types` (public, BUSL-1.1)
@@ -122,3 +127,7 @@ Foundation layer. Nothing in the ecosystem sits below it except `@sudobility/typ
 - The `BaseResponse<T>` wrapper is the standard API envelope -- all API responses must conform to it
 - Do not add runtime dependencies; keep this lightweight (the five helpers are the sole exception)
 - Publishing is handled by `mogulgame_app/scripts/push_all.sh` + CI on push to `main`/`develop`. That script **skips repos with clean working trees**, so a committed-but-unpublished change requires bumping the version by hand and pushing
+
+## Git Workflow
+
+- Do not use feature branches for code changes. Always stay on the current branch.
